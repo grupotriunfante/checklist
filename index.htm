@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Checklist Diário - Coordenador Administrativo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+      background-color: #f8f9fa;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background-color: #fff;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: left;
+      font-size: 14px;
+    }
+    th {
+      background-color: #e9ecef;
+    }
+    td input[type="checkbox"] {
+      margin: 0;
+    }
+    .form-container {
+      margin-bottom: 20px;
+    }
+    .form-container label {
+      font-size: 14px;
+      margin-right: 10px;
+    }
+    .form-container input, .form-container select {
+      padding: 5px;
+      margin-right: 15px;
+      font-size: 14px;
+    }
+    .form-container button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+    .form-container button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Checklist Diário - Coordenador Administrativo</h1>
+
+<div class="form-container">
+  <label for="nome">Nome:</label>
+  <input type="text" id="nome" required>
+
+  <label for="data">Data:</label>
+  <input type="date" id="data" required>
+
+  <label for="unidade">Unidade:</label>
+  <select id="unidade" required>
+    <option value="">Selecione</option>
+    <option value="TCA">TCA</option>
+    <option value="TCV">TCV</option>
+    <option value="ABC">ABC</option>
+    <option value="MCD">MCD</option>
+    <option value="TBL">TBL</option>
+    <option value="TPA">TPA</option>
+    <option value="TBA">TBA</option>
+    <option value="TSJ">TSJ</option>
+    <option value="API">API</option>
+    <option value="TPH">TPH</option>
+    <option value="TCG">TCG</option>
+  </select>
+</div>
+
+<form id="checklist-form">
+  <table>
+    <thead>
+      <tr>
+        <th>Horário/Evento</th>
+        <th>Atividade</th>
+        <th>Ferramenta/Maquinário</th>
+        <th>Plano de Reação</th>
+        <th>Sim</th>
+        <th>Não</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Reutiliza o mesmo padrão para todas as 9 linhas -->
+      <!-- Exemplo da primeira linha -->
+      <tr>
+        <td>08:30 - 09:00</td>
+        <td>Solicitar orçamento 2 dias antes da utilização</td>
+        <td>E-mail</td>
+        <td>Acionar Gerente administrativo</td>
+        <td><input type="checkbox" name="realizado_1" value="Sim" onclick="toggleCheck(this)"></td>
+        <td><input type="checkbox" name="realizado_1" value="Não" onclick="toggleCheck(this)"></td>
+      </tr>
+      <tr>
+        <td>08:30 - 09:00</td>
+        <td>Lançamento de caixa 1 dia após o recebimento</td>
+        <td>SICF</td>
+        <td>Acionar Contas a Pagar (CAP)</td>
+        <td><input type="checkbox" name="realizado_2" value="Sim" onclick="toggleCheck(this)"></td>
+        <td><input type="checkbox" name="realizado_2" value="Não" onclick="toggleCheck(this)"></td>
+      </tr>
+      <tr>
+        <td>Conforme demanda</td>
+        <td>Envio de DDA 1 dia de antecedência até as 17h00</td>
+        <td>SICF</td>
+        <td>Acionar Gerente Comercial</td>
+        <td><input type="checkbox" name="realizado_3" value="Sim" onclick="toggleCheck(this)"></td>
+        <td><input type="checkbox" name="realizado_3" value="Não" onclick="toggleCheck(this)"></td>
+      </tr>
+      <tr>
+        <td>Até 23:00 do último dia útil</td>
+        <td>Validar os lançamentos das notas de serviço com e sem retenção</td>
+        <td>SICF</td>
+        <td>Acionar Contas a Pagar (CAP)</td>
+        <td><input type="checkbox" name="realizado_4" value="Sim" onclick="toggleCheck(this)"></td>
+        <td><input type="checkbox" name="realizado_4" value="Não" onclick="toggleCheck(this)"></td>
+      </tr>
+      <tr>
+        <td>Conforme demanda</td>
+        <td>Realizar manutenções necessárias no CAR</td>
+        <td>SICF / E-mail</td>
+        <td>Acionar financeiro CTD</td>
+        <td><input type="checkbox" name="realizado_5" value="Sim" onclick="toggleCheck(this)"></td>
+        <td><input type="checkbox" name="realizado_5" value="Não" onclick="toggleCheck(this)"></td>
+      </tr>
+      <tr>
+        <td>Conforme demanda</td>
+        <td>Corrigir falhas operacionais</td>
+        <td>SICF</td>
+        <td>Acionar financeiro CTD</td>
+        <td><input type="checkbox" name="realizado_6" value="Sim" onclick="toggleCheck(this)"></td>
+        <td><input type="checkbox" name="realizado_6" value="Não" onclick="toggleCheck(this)"></td>
+      </tr>
+      <tr>
+        <td>Conforme demanda</td>
+        <td>Enviar DDA para financeiro</td>
+        <td>SICF</td>
+        <td>Acionar financeiro unidade</td>
+        <td><input type="checkbox" name="realizado_7" value="Sim" onclick="toggleCheck(this)"></td>
+        <td><input type="checkbox" name="realizado_7" value="Não" onclick="toggleCheck(this)"></td>
+      </tr>
+      <tr>
+        <td>Conforme demanda</td>
+        <td>Conferir lançamento de despesas</td>
+        <td>SICF</td>
+        <td>-</td>
+        <td><input type="checkbox" name="realizado_8" value="Sim" onclick="toggleCheck(this)"></td>
+        <td><input type="checkbox" name="realizado_8" value="Não" onclick="toggleCheck(this)"></td>
+      </tr>
+      <tr>
+        <td>Conforme demanda</td>
+        <td>Verificar a tributação quando houver devolução para a indústria</td>
+        <td>SICF</td>
+        <td>Acionar financeiro CTD</td>
+        <td><input type="checkbox" name="realizado_9" value="Sim" onclick="toggleCheck(this)"></td>
+        <td><input type="checkbox" name="realizado_9" value="Não" onclick="toggleCheck(this)"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="form-container">
+    <button type="submit">Enviar</button>
+  </div>
+</form>
+
+<script>
+  function toggleCheck(checkbox) {
+    const group = document.querySelectorAll(`input[name="${checkbox.name}"]`);
+    group.forEach(cb => {
+      if (cb !== checkbox) cb.checked = false;
+    });
+  }
+
+  document.getElementById("checklist-form").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const data = {
+      nome: document.getElementById("nome").value,
+      data: document.getElementById("data").value,
+      unidade: document.getElementById("unidade").value
+    };
+
+    for (let i = 1; i <= 9; i++) {
+      const checks = document.querySelectorAll(`input[name="realizado_${i}"]`);
+      checks.forEach(cb => {
+        if (cb.checked) {
+          data[`realizado_${i}`] = cb.value;
+        }
+      });
+    }
+
+    fetch("https://prod-19.brazilsouth.logic.azure.com:443/workflows/84c47ae10bbc4742a5a7c57840f0952d/triggers/manual/paths/invoke?api-version=2016-06-01", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+    .then(response => {
+      if (!response.ok) throw new Error("Erro ao enviar");
+      alert("Checklist enviado com sucesso!");
+      document.getElementById("checklist-form").reset();
+    })
+    .catch(error => alert("Falha no envio: " + error.message));
+  });
+</script>
+
+</body>
+</html>
