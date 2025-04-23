@@ -99,8 +99,7 @@
       </tr>
     </thead>
     <tbody>
-      <!-- Reutiliza o mesmo padrão para todas as 9 linhas -->
-      <!-- Exemplo da primeira linha -->
+      <!-- 9 linhas de checklist -->
       <tr>
         <td>08:30 - 09:00</td>
         <td>Solicitar orçamento 2 dias antes da utilização</td>
@@ -176,6 +175,17 @@
     </tbody>
   </table>
 
+  <!-- Campos ocultos para armazenar horário -->
+  <input type="hidden" id="horario_1">
+  <input type="hidden" id="horario_2">
+  <input type="hidden" id="horario_3">
+  <input type="hidden" id="horario_4">
+  <input type="hidden" id="horario_5">
+  <input type="hidden" id="horario_6">
+  <input type="hidden" id="horario_7">
+  <input type="hidden" id="horario_8">
+  <input type="hidden" id="horario_9">
+
   <div class="form-container">
     <button type="submit">Enviar</button>
   </div>
@@ -187,6 +197,11 @@
     group.forEach(cb => {
       if (cb !== checkbox) cb.checked = false;
     });
+
+    const now = new Date();
+    const horario = now.toLocaleTimeString('pt-BR');
+    const index = checkbox.name.split('_')[1];
+    document.getElementById(`horario_${index}`).value = horario;
   }
 
   document.getElementById("checklist-form").addEventListener("submit", function(e) {
@@ -203,11 +218,12 @@
       checks.forEach(cb => {
         if (cb.checked) {
           data[`realizado_${i}`] = cb.value;
+          data[`horario_${i}`] = document.getElementById(`horario_${i}`).value;
         }
       });
     }
 
-    fetch("https://prod-19.brazilsouth.logic.azure.com:443/workflows/84c47ae10bbc4742a5a7c57840f0952d/triggers/manual/paths/invoke?api-version=2016-06-01", {
+    fetch("https://script.google.com/macros/s/AKfycbwBKD3FLRca0O6BXn9WMm46nANbufNt80CfDf9fWNDfGlMBgt-ZygHVYQTHtQhxQvGwUA/exec", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
