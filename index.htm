@@ -5,53 +5,95 @@
   <title>Checklist Diário - Coordenador Administrativo</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Arial', sans-serif;
       margin: 30px;
       background-color: #f8f9fa;
+      color: #333;
+      transition: all 0.3s ease-in-out;
     }
     h1 {
       text-align: center;
-      color: #333;
+      color: #007bff;
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      animation: fadeIn 1s ease-out;
     }
     table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 20px;
       background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      animation: slideIn 1s ease-out;
     }
     th, td {
       border: 1px solid #ccc;
-      padding: 10px;
+      padding: 12px;
       text-align: left;
       font-size: 14px;
+      transition: all 0.3s ease-in-out;
     }
     th {
       background-color: #e9ecef;
+      color: #007bff;
+    }
+    td:hover {
+      background-color: #f1f1f1;
+      cursor: pointer;
     }
     .form-container {
       margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      animation: fadeInUp 1s ease-out;
     }
     .form-container label {
       font-size: 14px;
       margin-right: 10px;
+      color: #333;
+      width: 100%;
     }
     .form-container input, .form-container select {
-      padding: 5px;
+      padding: 8px;
       margin-right: 15px;
       font-size: 14px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      transition: border-color 0.3s ease-in-out;
+      margin-bottom: 10px;
+      width: 48%;
+    }
+    .form-container input:focus, .form-container select:focus {
+      border-color: #007bff;
     }
     .form-container button {
-      padding: 10px 20px;
+      padding: 12px 25px;
       background-color: #007bff;
       color: white;
       border: none;
-      border-radius: 5px;
+      border-radius: 8px;
       cursor: pointer;
       font-size: 16px;
       margin-top: 20px;
+      transition: all 0.3s ease-in-out;
     }
     .form-container button:hover {
       background-color: #0056b3;
+      transform: scale(1.05);
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideIn {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(0); }
+    }
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
@@ -84,83 +126,133 @@
   </select>
 </div>
 
-<form>
+<form id="checklistForm">
   <table>
     <thead>
       <tr>
         <th>Horário/Evento</th>
         <th>Atividade</th>
-        <th>Ferramenta/Maquinário</th>
+        <th>Ferramenta/Maquinario</th>
         <th>Plano de Reação</th>
         <th>Sim</th>
         <th>Não</th>
       </tr>
     </thead>
-    <tbody id="tabelaAtividades">
-      <!-- Atividades serão inseridas via JS -->
+    <tbody>
+      <script>
+        const atividades = [
+          ["08:30 - 09:00", "Solicitar orçamento 2 dias antes da utilização", "E-mail", "Acionar Gerente administrativo"],
+          ["08:30 - 09:00", "Lançamento de caixa 1 dia após o recebimento", "SICF", "Acionar Contas a Pagar (CAP)"],
+          ["Conforme demanda", "Envio de DDA 1 dia de antecedência até as 17h00", "SICF", "Acionar Gerente Comercial"],
+          ["Até 23:00 do último dia útil", "Validar os lançamentos das notas de serviço com e sem retenção", "SICF", "Acionar Contas a Pagar (CAP)"],
+          ["Conforme demanda", "Realizar manutenções necessárias no CAR", "SICF / E-mail", "Acionar financeiro CTD"],
+          ["Conforme demanda", "Corrigir falhas operacionais", "SICF", "Acionar financeiro CTD"],
+          ["Conforme demanda", "Enviar DDA para financeiro", "SICF", "Acionar financeiro unidade"],
+          ["Conforme demanda", "Conferir lançamento de despesas", "SICF", "-"],
+          ["Conforme demanda", "Verificar a tributação quando houver devolução para a industria", "SICF", "Acionar financeiro CTD"]
+        ];
+
+        for (let i = 0; i < atividades.length; i++) {
+          document.write(`
+            <tr>
+              <td>${atividades[i][0]}</td>
+              <td>${atividades[i][1]}</td>
+              <td>${atividades[i][2]}</td>
+              <td>${atividades[i][3]}</td>
+              <td>
+                <input type="checkbox" name="atividade_${i+1}" value="Sim"
+                  onclick="toggleCheckbox(event, this, 'atividade_${i+1}', 'Sim')">
+              </td>
+              <td>
+                <input type="checkbox" name="atividade_${i+1}" value="Não"
+                  onclick="toggleCheckbox(event, this, 'atividade_${i+1}', 'Não')">
+              </td>
+              <input type="hidden" name="hora_atividade_${i+1}">
+              <input type="hidden" name="resposta_atividade_${i+1}">
+            </tr>
+          `);
+        }
+      </script>
     </tbody>
   </table>
 
-  <!-- Botão Enviar -->
   <div class="form-container">
-    <button type="submit">Enviar</button>
+    <button type="submit" id="submitBtn">Enviar</button>
   </div>
 </form>
 
-<!-- Scripts -->
 <script>
-  const atividades = [
-    ["08:30 - 09:00", "Solicitar orçamento 2 dias antes da utilização", "E-mail", "Acionar Gerente administrativo"],
-    ["08:30 - 09:00", "Lançamento de caixa 1 dia após o recebimento", "SICF", "Acionar Contas a Pagar (CAP)"],
-    ["Conforme demanda", "Envio de DDA 1 dia de antecedência até as 17h00", "SICF", "Acionar Gerente Comercial"],
-    ["Até 23:00 do último dia útil", "Validar os lançamentos das notas de serviço com e sem retenção", "SICF", "Acionar Contas a Pagar (CAP)"],
-    ["Conforme demanda", "Realizar manutenções necessárias no CAR", "SICF / E-mail", "Acionar financeiro CTD"],
-    ["Conforme demanda", "Corrigir falhas operacionais", "SICF", "Acionar financeiro CTD"],
-    ["Conforme demanda", "Enviar DDA para financeiro", "SICF", "Acionar financeiro unidade"],
-    ["Conforme demanda", "Conferir lançamento de despesas", "SICF", "-"],
-    ["Conforme demanda", "Verificar a tributação quando houver devolução para a indústria", "SICF", "Acionar financeiro CTD"]
-  ];
+  let formularioEnviado = false;
 
-  const tbody = document.getElementById('tabelaAtividades');
-
-  atividades.forEach((atv, i) => {
-    const idx = i + 1;
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${atv[0]}</td>
-      <td>${atv[1]}</td>
-      <td>${atv[2]}</td>
-      <td>${atv[3]}</td>
-      <td><input type="radio" name="atividade_${idx}" value="Sim" onclick="registrarHorario('hora_atividade_${idx}')"></td>
-      <td><input type="radio" name="atividade_${idx}" value="Não" onclick="registrarHorario('hora_atividade_${idx}')"></td>
-      <input type="hidden" name="hora_atividade_${idx}">
-    `;
-    tbody.appendChild(tr);
+  window.addEventListener("beforeunload", function (e) {
+    if (!formularioEnviado) {
+      e.preventDefault();
+      e.returnValue = "Você tem certeza que deseja sair? As informações preenchidas serão perdidas.";
+    }
   });
 
-  function registrarHorario(nomeCampo) {
-    const agora = new Date().toLocaleString('pt-BR');
-    const inputHidden = document.querySelector(`[name=${nomeCampo}]`);
-    if (inputHidden && inputHidden.value === "") {
-      inputHidden.value = agora;
-    }
+  function toggleCheckbox(event, checkbox, nomeAtividade, valorSelecionado) {
+    const checkboxes = document.getElementsByName(nomeAtividade);
+    checkboxes.forEach(c => {
+      if (c !== checkbox) c.checked = false;
+    });
+    const horaCampo = document.querySelector(`[name=hora_${nomeAtividade}]`);
+    const respostaCampo = document.querySelector(`[name=resposta_${nomeAtividade}]`);
+    horaCampo.value = new Date().toLocaleString('pt-BR');
+    respostaCampo.value = valorSelecionado;
   }
 
-  document.querySelector('form').addEventListener('submit', function(e) {
+  document.getElementById("checklistForm").addEventListener("submit", function(e) {
     e.preventDefault();
+    const nome = document.getElementById("nome").value;
+    const data = document.getElementById("data").value;
+    const unidade = document.getElementById("unidade").value;
 
-    const formData = new FormData(document.querySelector('form'));
-    formData.append("nome", document.getElementById("nome").value);
-    formData.append("data", document.getElementById("data").value);
-    formData.append("unidade", document.getElementById("unidade").value);
+    if (!nome || !data || !unidade) {
+      alert("Preencha todos os campos obrigatórios.");
+      return;
+    }
 
-    fetch('https://script.google.com/macros/s/AKfycbx48y6SZ0zeJPP0N9-Bd23udBO2QAqnUsId8g-UimKnS_iAt3smuGUjVTu5ylU4bre4yg/exec', {
-      method: 'POST',
+    let algumaMarcada = false;
+    for (let i = 1; i <= atividades.length; i++) {
+      const resposta = document.querySelector(`[name=resposta_atividade_${i}]`).value;
+      if (resposta === "Sim" || resposta === "Não") {
+        algumaMarcada = true;
+        break;
+      }
+    }
+
+    if (!algumaMarcada) {
+      alert("Marque pelo menos uma atividade.");
+      return;
+    }
+
+    if (!confirm("Tem certeza que deseja enviar?")) return;
+
+    const submitBtn = document.getElementById("submitBtn");
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Enviando...";
+
+    const formData = new FormData(document.getElementById("checklistForm"));
+    formData.append("nome", nome);
+    formData.append("data", data);
+    formData.append("unidade", unidade);
+
+    fetch("https://script.google.com/macros/s/AKfycbx48y6SZ0zeJPP0N9-Bd23udBO2QAqnUsId8g-UimKnS_iAt3smuGUjVTu5ylU4bre4yg/exec", {
+      method: "POST",
       body: formData
     })
     .then(response => response.text())
-    .then(data => alert('Dados enviados com sucesso!'))
-    .catch(error => alert('Erro ao enviar os dados: ' + error));
+    .then(data => {
+      formularioEnviado = true;
+      alert("Dados enviados com sucesso!");
+      location.reload();
+    })
+    .catch(error => {
+      alert("Erro ao enviar os dados: " + error);
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Enviar";
+    });
   });
 </script>
 
