@@ -4,58 +4,22 @@
   <meta charset="UTF-8">
   <title>Checklist Diário - Coordenador Administrativo</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 30px;
-      background-color: #f8f9fa;
-    }
-    h1 {
-      text-align: center;
-      color: #333;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-      background-color: #fff;
-    }
-    th, td {
-      border: 1px solid #ccc;
-      padding: 10px;
-      text-align: left;
-      font-size: 14px;
-    }
-    th {
-      background-color: #e9ecef;
-    }
-    td input[type="checkbox"] {
-      margin: 0;
-    }
-    .form-container {
-      margin-bottom: 20px;
-    }
-    .form-container label {
-      font-size: 14px;
-      margin-right: 10px;
-    }
+    body { font-family: Arial, sans-serif; margin: 30px; background-color: #f8f9fa; }
+    h1 { text-align: center; color: #333; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; background-color: #fff; }
+    th, td { border: 1px solid #ccc; padding: 10px; text-align: left; font-size: 14px; }
+    th { background-color: #e9ecef; }
+    td input[type="checkbox"] { margin: 0; }
+    .form-container { margin-bottom: 20px; }
+    .form-container label { font-size: 14px; margin-right: 10px; }
     .form-container input, .form-container select {
-      padding: 5px;
-      margin-right: 15px;
-      font-size: 14px;
+      padding: 5px; margin-right: 15px; font-size: 14px;
     }
     .form-container button {
-      padding: 10px 20px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 16px;
-      margin-top: 20px;
+      padding: 10px 20px; background-color: #007bff; color: white; border: none;
+      border-radius: 5px; cursor: pointer; font-size: 16px; margin-top: 20px;
     }
-    .form-container button:hover {
-      background-color: #0056b3;
-    }
+    .form-container button:hover { background-color: #0056b3; }
   </style>
 </head>
 <body>
@@ -98,93 +62,10 @@
         <th>Não</th>
       </tr>
     </thead>
-    <tbody>
-      <!-- 9 linhas de checklist -->
-      <tr>
-        <td>08:30 - 09:00</td>
-        <td>Solicitar orçamento 2 dias antes da utilização</td>
-        <td>E-mail</td>
-        <td>Acionar Gerente administrativo</td>
-        <td><input type="checkbox" name="realizado_1" value="Sim" onclick="toggleCheck(this)"></td>
-        <td><input type="checkbox" name="realizado_1" value="Não" onclick="toggleCheck(this)"></td>
-      </tr>
-      <tr>
-        <td>08:30 - 09:00</td>
-        <td>Lançamento de caixa 1 dia após o recebimento</td>
-        <td>SICF</td>
-        <td>Acionar Contas a Pagar (CAP)</td>
-        <td><input type="checkbox" name="realizado_2" value="Sim" onclick="toggleCheck(this)"></td>
-        <td><input type="checkbox" name="realizado_2" value="Não" onclick="toggleCheck(this)"></td>
-      </tr>
-      <tr>
-        <td>Conforme demanda</td>
-        <td>Envio de DDA 1 dia de antecedência até as 17h00</td>
-        <td>SICF</td>
-        <td>Acionar Gerente Comercial</td>
-        <td><input type="checkbox" name="realizado_3" value="Sim" onclick="toggleCheck(this)"></td>
-        <td><input type="checkbox" name="realizado_3" value="Não" onclick="toggleCheck(this)"></td>
-      </tr>
-      <tr>
-        <td>Até 23:00 do último dia útil</td>
-        <td>Validar os lançamentos das notas de serviço com e sem retenção</td>
-        <td>SICF</td>
-        <td>Acionar Contas a Pagar (CAP)</td>
-        <td><input type="checkbox" name="realizado_4" value="Sim" onclick="toggleCheck(this)"></td>
-        <td><input type="checkbox" name="realizado_4" value="Não" onclick="toggleCheck(this)"></td>
-      </tr>
-      <tr>
-        <td>Conforme demanda</td>
-        <td>Realizar manutenções necessárias no CAR</td>
-        <td>SICF / E-mail</td>
-        <td>Acionar financeiro CTD</td>
-        <td><input type="checkbox" name="realizado_5" value="Sim" onclick="toggleCheck(this)"></td>
-        <td><input type="checkbox" name="realizado_5" value="Não" onclick="toggleCheck(this)"></td>
-      </tr>
-      <tr>
-        <td>Conforme demanda</td>
-        <td>Corrigir falhas operacionais</td>
-        <td>SICF</td>
-        <td>Acionar financeiro CTD</td>
-        <td><input type="checkbox" name="realizado_6" value="Sim" onclick="toggleCheck(this)"></td>
-        <td><input type="checkbox" name="realizado_6" value="Não" onclick="toggleCheck(this)"></td>
-      </tr>
-      <tr>
-        <td>Conforme demanda</td>
-        <td>Enviar DDA para financeiro</td>
-        <td>SICF</td>
-        <td>Acionar financeiro unidade</td>
-        <td><input type="checkbox" name="realizado_7" value="Sim" onclick="toggleCheck(this)"></td>
-        <td><input type="checkbox" name="realizado_7" value="Não" onclick="toggleCheck(this)"></td>
-      </tr>
-      <tr>
-        <td>Conforme demanda</td>
-        <td>Conferir lançamento de despesas</td>
-        <td>SICF</td>
-        <td>-</td>
-        <td><input type="checkbox" name="realizado_8" value="Sim" onclick="toggleCheck(this)"></td>
-        <td><input type="checkbox" name="realizado_8" value="Não" onclick="toggleCheck(this)"></td>
-      </tr>
-      <tr>
-        <td>Conforme demanda</td>
-        <td>Verificar a tributação quando houver devolução para a indústria</td>
-        <td>SICF</td>
-        <td>Acionar financeiro CTD</td>
-        <td><input type="checkbox" name="realizado_9" value="Sim" onclick="toggleCheck(this)"></td>
-        <td><input type="checkbox" name="realizado_9" value="Não" onclick="toggleCheck(this)"></td>
-      </tr>
+    <tbody id="checklist-body">
+      <!-- Linhas serão inseridas via JS -->
     </tbody>
   </table>
-
-  <!-- Campos ocultos para armazenar horário -->
-  <input type="hidden" id="horario_1">
-  <input type="hidden" id="horario_2">
-  <input type="hidden" id="horario_3">
-  <input type="hidden" id="horario_4">
-  <input type="hidden" id="horario_5">
-  <input type="hidden" id="horario_6">
-  <input type="hidden" id="horario_7">
-  <input type="hidden" id="horario_8">
-  <input type="hidden" id="horario_9">
 
   <div class="form-container">
     <button type="submit">Enviar</button>
@@ -192,16 +73,41 @@
 </form>
 
 <script>
-  function toggleCheck(checkbox) {
-    const group = document.querySelectorAll(`input[name="${checkbox.name}"]`);
-    group.forEach(cb => {
-      if (cb !== checkbox) cb.checked = false;
-    });
+  const atividades = [
+    ["08:30 - 09:00", "Solicitar orçamento 2 dias antes da utilização", "E-mail", "Acionar Gerente administrativo"],
+    ["08:30 - 09:00", "Lançamento de caixa 1 dia após o recebimento", "SICF", "Acionar Contas a Pagar (CAP)"],
+    ["Conforme demanda", "Envio de DDA 1 dia de antecedência até as 17h00", "SICF", "Acionar Gerente Comercial"],
+    ["Até 23:00 do último dia útil", "Validar os lançamentos das notas de serviço com e sem retenção", "SICF", "Acionar Contas a Pagar (CAP)"],
+    ["Conforme demanda", "Realizar manutenções necessárias no CAR", "SICF / E-mail", "Acionar financeiro CTD"],
+    ["Conforme demanda", "Corrigir falhas operacionais", "SICF", "Acionar financeiro CTD"],
+    ["Conforme demanda", "Enviar DDA para financeiro", "SICF", "Acionar financeiro unidade"],
+    ["Conforme demanda", "Conferir lançamento de despesas", "SICF", "-"],
+    ["Conforme demanda", "Verificar a tributação quando houver devolução para a indústria", "SICF", "Acionar financeiro CTD"]
+  ];
 
-    const now = new Date();
-    const horario = now.toLocaleTimeString('pt-BR');
-    const index = checkbox.name.split('_')[1];
-    document.getElementById(`horario_${index}`).value = horario;
+  const tbody = document.getElementById("checklist-body");
+  atividades.forEach((item, index) => {
+    const i = index + 1;
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${item[0]}</td>
+      <td>${item[1]}</td>
+      <td>${item[2]}</td>
+      <td>${item[3]}</td>
+      <td><input type="checkbox" name="realizado_${i}" value="Sim" onclick="toggleCheck(this, ${i})"></td>
+      <td><input type="checkbox" name="realizado_${i}" value="Não" onclick="toggleCheck(this, ${i})"></td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  const horarios = {};
+
+  function toggleCheck(checkbox, index) {
+    const group = document.querySelectorAll(`input[name="realizado_${index}"]`);
+    group.forEach(cb => { if (cb !== checkbox) cb.checked = false; });
+    if (checkbox.checked) {
+      horarios[`horario_${index}`] = new Date().toLocaleString();
+    }
   }
 
   document.getElementById("checklist-form").addEventListener("submit", function(e) {
@@ -218,24 +124,25 @@
       checks.forEach(cb => {
         if (cb.checked) {
           data[`realizado_${i}`] = cb.value;
-          data[`horario_${i}`] = document.getElementById(`horario_${i}`).value;
+          data[`horario_${i}`] = horarios[`horario_${i}`] || '';
         }
       });
     }
 
-    fetch("https://script.google.com/macros/s/AKfycbwBKD3FLRca0O6BXn9WMm46nANbufNt80CfDf9fWNDfGlMBgt-ZygHVYQTHtQhxQvGwUA/exec", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    })
+fetch('https://script.google.com/macros/s/AKfycbxnCBP-Y4EE0OORy5o9J2uKZbmJExRs9NuXRJs7tvJNzCvY5KZMX4HqtUY4BpUwFYnP/exec', {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify(data)
+})
+
     .then(response => {
       if (!response.ok) throw new Error("Erro ao enviar");
       alert("Checklist enviado com sucesso!");
       document.getElementById("checklist-form").reset();
     })
-    .catch(error => alert("Falha no envio: " + error.message));
+    .catch(error => alert("Falha no envio foda: " + error.message));
   });
 </script>
 
