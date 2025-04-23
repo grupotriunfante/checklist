@@ -4,37 +4,71 @@
   <meta charset="UTF-8">
   <title>Checklist Diário - Coordenador Administrativo</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 30px; background-color: #f8f9fa; }
-    h1 { text-align: center; color: #333; }
-    table { width: 100%; border-collapse: collapse; margin-top: 20px; background-color: #fff; }
-    th, td { border: 1px solid #ccc; padding: 10px; text-align: left; font-size: 14px; }
-    th { background-color: #e9ecef; }
-    td input[type="checkbox"] { margin: 0; }
-    .form-container { margin-bottom: 20px; }
-    .form-container label { font-size: 14px; margin-right: 10px; }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+      background-color: #f8f9fa;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background-color: #fff;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: left;
+      font-size: 14px;
+    }
+    th {
+      background-color: #e9ecef;
+    }
+    .form-container {
+      margin-bottom: 20px;
+    }
+    .form-container label {
+      font-size: 14px;
+      margin-right: 10px;
+    }
     .form-container input, .form-container select {
-      padding: 5px; margin-right: 15px; font-size: 14px;
+      padding: 5px;
+      margin-right: 15px;
+      font-size: 14px;
     }
     .form-container button {
-      padding: 10px 20px; background-color: #007bff; color: white; border: none;
-      border-radius: 5px; cursor: pointer; font-size: 16px; margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 20px;
     }
-    .form-container button:hover { background-color: #0056b3; }
+    .form-container button:hover {
+      background-color: #0056b3;
+    }
   </style>
 </head>
 <body>
 
 <h1>Checklist Diário - Coordenador Administrativo</h1>
 
+<!-- Formulário de informações iniciais -->
 <div class="form-container">
   <label for="nome">Nome:</label>
-  <input type="text" id="nome" required>
+  <input type="text" id="nome" name="nome" placeholder="Digite seu nome" required>
 
   <label for="data">Data:</label>
-  <input type="date" id="data" required>
+  <input type="date" id="data" name="data" required>
 
   <label for="unidade">Unidade:</label>
-  <select id="unidade" required>
+  <select id="unidade" name="unidade" required>
     <option value="">Selecione</option>
     <option value="TCA">TCA</option>
     <option value="TCV">TCV</option>
@@ -50,7 +84,7 @@
   </select>
 </div>
 
-<form id="checklist-form">
+<form>
   <table>
     <thead>
       <tr>
@@ -62,16 +96,18 @@
         <th>Não</th>
       </tr>
     </thead>
-    <tbody id="checklist-body">
-      <!-- Linhas serão inseridas via JS -->
+    <tbody id="tabelaAtividades">
+      <!-- Atividades serão inseridas via JS -->
     </tbody>
   </table>
 
+  <!-- Botão Enviar -->
   <div class="form-container">
     <button type="submit">Enviar</button>
   </div>
 </form>
 
+<!-- Scripts -->
 <script>
   const atividades = [
     ["08:30 - 09:00", "Solicitar orçamento 2 dias antes da utilização", "E-mail", "Acionar Gerente administrativo"],
@@ -85,64 +121,46 @@
     ["Conforme demanda", "Verificar a tributação quando houver devolução para a indústria", "SICF", "Acionar financeiro CTD"]
   ];
 
-  const tbody = document.getElementById("checklist-body");
-  atividades.forEach((item, index) => {
-    const i = index + 1;
-    const tr = document.createElement("tr");
+  const tbody = document.getElementById('tabelaAtividades');
+
+  atividades.forEach((atv, i) => {
+    const idx = i + 1;
+    const tr = document.createElement('tr');
     tr.innerHTML = `
-      <td>${item[0]}</td>
-      <td>${item[1]}</td>
-      <td>${item[2]}</td>
-      <td>${item[3]}</td>
-      <td><input type="checkbox" name="realizado_${i}" value="Sim" onclick="toggleCheck(this, ${i})"></td>
-      <td><input type="checkbox" name="realizado_${i}" value="Não" onclick="toggleCheck(this, ${i})"></td>
+      <td>${atv[0]}</td>
+      <td>${atv[1]}</td>
+      <td>${atv[2]}</td>
+      <td>${atv[3]}</td>
+      <td><input type="radio" name="atividade_${idx}" value="Sim" onclick="registrarHorario('hora_atividade_${idx}')"></td>
+      <td><input type="radio" name="atividade_${idx}" value="Não" onclick="registrarHorario('hora_atividade_${idx}')"></td>
+      <input type="hidden" name="hora_atividade_${idx}">
     `;
     tbody.appendChild(tr);
   });
 
-  const horarios = {};
-
-  function toggleCheck(checkbox, index) {
-    const group = document.querySelectorAll(`input[name="realizado_${index}"]`);
-    group.forEach(cb => { if (cb !== checkbox) cb.checked = false; });
-    if (checkbox.checked) {
-      horarios[`horario_${index}`] = new Date().toLocaleString();
+  function registrarHorario(nomeCampo) {
+    const agora = new Date().toLocaleString('pt-BR');
+    const inputHidden = document.querySelector(`[name=${nomeCampo}]`);
+    if (inputHidden && inputHidden.value === "") {
+      inputHidden.value = agora;
     }
   }
 
-  document.getElementById("checklist-form").addEventListener("submit", function(e) {
+  document.querySelector('form').addEventListener('submit', function(e) {
     e.preventDefault();
 
-    const data = {
-      nome: document.getElementById("nome").value,
-      data: document.getElementById("data").value,
-      unidade: document.getElementById("unidade").value
-    };
+    const formData = new FormData(document.querySelector('form'));
+    formData.append("nome", document.getElementById("nome").value);
+    formData.append("data", document.getElementById("data").value);
+    formData.append("unidade", document.getElementById("unidade").value);
 
-    for (let i = 1; i <= 9; i++) {
-      const checks = document.querySelectorAll(`input[name="realizado_${i}"]`);
-      checks.forEach(cb => {
-        if (cb.checked) {
-          data[`realizado_${i}`] = cb.value;
-          data[`horario_${i}`] = horarios[`horario_${i}`] || '';
-        }
-      });
-    }
-
-fetch('https://script.google.com/macros/s/AKfycbxnCBP-Y4EE0OORy5o9J2uKZbmJExRs9NuXRJs7tvJNzCvY5KZMX4HqtUY4BpUwFYnP/exec', {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify(data)
-})
-
-    .then(response => {
-      if (!response.ok) throw new Error("Erro ao enviar");
-      alert("Checklist enviado com sucesso!");
-      document.getElementById("checklist-form").reset();
+    fetch('https://script.google.com/macros/s/AKfycbx48y6SZ0zeJPP0N9-Bd23udBO2QAqnUsId8g-UimKnS_iAt3smuGUjVTu5ylU4bre4yg/exec', {
+      method: 'POST',
+      body: formData
     })
-    .catch(error => alert("Falha no envio foda: " + error.message));
+    .then(response => response.text())
+    .then(data => alert('Dados enviados com sucesso!'))
+    .catch(error => alert('Erro ao enviar os dados: ' + error));
   });
 </script>
 
