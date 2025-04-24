@@ -253,7 +253,7 @@
     formData.append("data", data);
     formData.append("unidade", unidade);
 
-    fetch("https://script.google.com/macros/s/AKfycbz-AEoPHfScrE-ZwAPbGj4z8yyLA_bePM54N1nts0U8pIJ0TSXws308V_co2IULYDQxFg/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbwqD1V2-wYxsK94SBDYfo1jgcMPX7uIcIOHHEnwyrAMMy_EJIBZVZaekw4PTtQ9zBuD0g/exec", {
       method: "POST",
       body: formData
     })
@@ -293,12 +293,22 @@
   </a>
 </div>
 
+<script>
+  window.onload = function () {
+    const dataInput = document.getElementById("data");
+    const hoje = new Date().toISOString().split("T")[0];
+    dataInput.value = hoje;
+    dataInput.min = hoje;
+    dataInput.max = hoje;
+    dataInput.readOnly = true; // impede que o usuário digite manualmente
+  };
+</script>
 
 
 
 </body>
 
-</html>
 
-</body>
+
+
 </html>
