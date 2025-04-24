@@ -98,33 +98,43 @@
   </style>
 </head>
 <body>
-
-<h1>Checklist Diário - Coordenador Administrativo</h1>
-
-<!-- Formulário de informações iniciais -->
-<div class="form-container">
-  <label for="nome">Nome:</label>
-  <input type="text" id="nome" name="nome" placeholder="Digite seu nome" required>
-
-  <label for="data">Data:</label>
-  <input type="date" id="data" name="data" required>
-
-  <label for="unidade">Unidade:</label>
-  <select id="unidade" name="unidade" required>
-    <option value="">Selecione</option>
-    <option value="TCA">TCA</option>
-    <option value="TCV">TCV</option>
-    <option value="ABC">ABC</option>
-    <option value="MCD">MCD</option>
-    <option value="TBL">TBL</option>
-    <option value="TPA">TPA</option>
-    <option value="TBA">TBA</option>
-    <option value="TSJ">TSJ</option>
-    <option value="API">API</option>
-    <option value="TPH">TPH</option>
-    <option value="TCG">TCG</option>
-  </select>
+<div style="display: flex; align-items: center; gap: 20px;">
+  <img src="https://i.imgur.com/L55qh7b.png" alt="Logo" style="width: 60px; height: auto;">
+  <img src="https://i.imgur.com/WzaQvTL.png" alt="Logo" style="width: 45px; height: auto;">
+  <h1 style="font-size: 32px; margin: 0;">Checklist de Rotina - Coordenador Administrativo</h1>
 </div>
+<h5>ADM-CKL-001 Rev:01</h5>
+<!-- Formulário de informações iniciais -->
+<div class="form-container" style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
+  <div style="flex: 2;">
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" name="nome" placeholder="Digite seu nome" required style="width: 100%;">
+  </div>
+
+  <div style="flex: 1;">
+    <label for="data">Data:</label>
+    <input type="date" id="data" name="data" required style="width: 100%;">
+  </div>
+
+  <div style="flex: 1;">
+    <label for="unidade">Unidade:</label>
+    <select id="unidade" name="unidade" required style="width: 100%;">
+      <option value="">Selecione</option>
+      <option value="TCA">TCA</option>
+      <option value="TCV">TCV</option>
+      <option value="ABC">ABC</option>
+      <option value="MCD">MCD</option>
+      <option value="TBL">TBL</option>
+      <option value="TPA">TPA</option>
+      <option value="TBA">TBA</option>
+      <option value="TSJ">TSJ</option>
+      <option value="API">API</option>
+      <option value="TPH">TPH</option>
+      <option value="TCG">TCG</option>
+    </select>
+  </div>
+</div>
+
 
 <form id="checklistForm">
   <table>
@@ -141,15 +151,20 @@
     <tbody>
       <script>
         const atividades = [
-          ["08:30 - 09:00", "Solicitar orçamento 2 dias antes da utilização", "E-mail", "Acionar Gerente administrativo"],
-          ["08:30 - 09:00", "Lançamento de caixa 1 dia após o recebimento", "SICF", "Acionar Contas a Pagar (CAP)"],
-          ["Conforme demanda", "Envio de DDA 1 dia de antecedência até as 17h00", "SICF", "Acionar Gerente Comercial"],
-          ["Até 23:00 do último dia útil", "Validar os lançamentos das notas de serviço com e sem retenção", "SICF", "Acionar Contas a Pagar (CAP)"],
-          ["Conforme demanda", "Realizar manutenções necessárias no CAR", "SICF / E-mail", "Acionar financeiro CTD"],
-          ["Conforme demanda", "Corrigir falhas operacionais", "SICF", "Acionar financeiro CTD"],
-          ["Conforme demanda", "Enviar DDA para financeiro", "SICF", "Acionar financeiro unidade"],
-          ["Conforme demanda", "Conferir lançamento de despesas", "SICF", "-"],
-          ["Conforme demanda", "Verificar a tributação quando houver devolução para a industria", "SICF", "Acionar financeiro CTD"]
+          ["2 dias antes da utilização", "Solicitar orçamento adicional (quando não há mais disponibilidade)", "E-mail", "Acionar Gerente administrativo"],
+          ["08:15 - 08:30", "Conferir movimentação do CAP", "SICF", "Acionar Contas a Pagar (CAP)"],
+          ["08:30 - 09:00", "Conferir  Livro Fiscal", "SICF", "Acionar Gerente Comercial"],
+          ["1 dia após o recebimento", "Enviar documentação CAP e notas de entrada", "SICF", "Acionar Contas a Pagar (CAP)"],
+          ["1 dia de antecedência  até as 17h00", "Soliciar ordens de pagamento (SOP)", "SICF / E-mail", "Acionar financeiro CTD"],
+          ["1 dias após o recebimento", "Corrigir as ocorrências de eventuais erros no lançamento de caixa", "SICF", "Acionar financeiro CTD"],
+          ["Conforme demanda", "Conferir o lançamento de despesas", "SICF", "Acionar financeiro unidade"],
+          ["Conforme necessidade (1 dia após o recebimento)", "Corrigir as ocorrências de eventuais erros no lançamento de despesas", "SICF", "Acionar financeiro unidade"],
+          ["Conforme demanda", "Corrigir eventuais falhas operacionais", "SICF", "Acionar Gerente Administrativo"],
+          ["1 dia de antecedência, até as 17h00","Enviar DDA para o financeiro","SICF","SICF","Acionar Financeiro CTD"],
+          ["Conforme demanda","Realizar manutenções necessarias no CAR (estorno, prorrogação e conferência)","SICF/E-mail","Acionar CAR unidade"],
+          ["Até as 23:00 do último dia útil do mês","Validar os lançamentos das notas de serviço com e sem retenção","SICF","SICF","Acionar CAR unidade"],
+          ["Conforme demanda","Verificar a tributação quando houver devolução para a industria","SICF","SICF","Acionar Contabilidade Unidades"]
+          
         ];
 
         for (let i = 0; i < atividades.length; i++) {
@@ -254,7 +269,36 @@
       submitBtn.textContent = "Enviar";
     });
   });
+  
 </script>
+<!-- Botão de ajuda discreto no final da página -->
+<div style="text-align: center; margin-top: 60px; margin-bottom: 20px;">
+  <a href="mailto:luis.correia@triunfante.com.br,marcelo.portella@triunfante.com.br,raphael.bortot@triunfante.com.br,daniela.nachbar@triunfante.com.br?subject=Ajuda%20-%20Checklist%20Coord%20Adm"
+     style="
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: #f1f1f1;
+      color: #333;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-size: 15px;
+      text-decoration: none;
+      border: 1px solid #ccc;
+      transition: all 0.3s ease;
+    "
+    onmouseover="this.style.backgroundColor='#e2e2e2'"
+    onmouseout="this.style.backgroundColor='#f1f1f1'">
+    💬 Fale com o suporte
+  </a>
+</div>
+
+
+
+
+</body>
+
+</html>
 
 </body>
 </html>
