@@ -142,6 +142,7 @@
       <tr>
         <th>Horário/Evento</th>
         <th>Atividade</th>
+        <th>Documento de Referência</th>
         <th>Ferramenta/Maquinario</th>
         <th>Plano de Reação</th>
         <th>Sim</th>
@@ -151,19 +152,26 @@
     <tbody>
       <script>
         const atividades = [
-          ["2 dias antes da utilização", "Solicitar orçamento adicional (quando não há mais disponibilidade)", "E-mail", "Acionar Gerente administrativo"],
-          ["08:15 - 08:30", "Conferir movimentação do CAP", "SICF", "Acionar Contas a Pagar (CAP)"],
-          ["08:30 - 09:00", "Conferir  Livro Fiscal", "SICF", "Acionar Gerente Comercial"],
-          ["1 dia após o recebimento", "Enviar documentação CAP e notas de entrada", "SICF", "Acionar Contas a Pagar (CAP)"],
-          ["1 dia de antecedência  até as 17h00", "Soliciar ordens de pagamento (SOP)", "SICF / E-mail", "Acionar financeiro CTD"],
-          ["1 dias após o recebimento", "Corrigir as ocorrências de eventuais erros no lançamento de caixa", "SICF", "Acionar financeiro CTD"],
-          ["Conforme demanda", "Conferir o lançamento de despesas", "SICF", "Acionar financeiro unidade"],
-          ["Conforme necessidade (1 dia após o recebimento)", "Corrigir as ocorrências de eventuais erros no lançamento de despesas", "SICF", "Acionar financeiro unidade"],
-          ["Conforme demanda", "Corrigir eventuais falhas operacionais", "SICF", "Acionar Gerente Administrativo"],
-          ["1 dia de antecedência, até as 17h00","Enviar DDA para o financeiro","SICF","SICF","Acionar Financeiro CTD"],
-          ["Conforme demanda","Realizar manutenções necessarias no CAR (estorno, prorrogação e conferência)","SICF/E-mail","Acionar CAR unidade"],
-          ["Até as 23:00 do último dia útil do mês","Validar os lançamentos das notas de serviço com e sem retenção","SICF","SICF","Acionar CAR unidade"],
-          ["Conforme demanda","Verificar a tributação quando houver devolução para a industria","SICF","SICF","Acionar Contabilidade Unidades"]
+          ["08:00 - 08:30", "Conferir livro fiscal (Não virar a data)","ADM-POP-001-TSJ","SICF","Acionar Gerente Administrativo"],
+          ["08:30 - 09:00", "Virar a Data no sistema (Confirmar com os setores)","-","Enail/Teams", "Acionar Gerente Administrativo"],
+          ["08:30 - 09:00", "Autorizar Faturamento","-","Email/Teams", "Acionar Gerente Administrativo"],
+          ["09:00 - 09:30", "Acompanhar o envio dos documentos para o Corporativo (contabilidade/financeiro)","-","Email/Teams", "Acionar Gerente Administrativo"],
+          ["09:30 - 10:00", "Acompanhar o Fluxo de Caixa (deixar impresso na mesa do Gerente)","-", "SICF", "Acionar Gerente Administrativo"],
+          ["10:00 - 11:00","Analisar e planejar as despesas e orçamento do mês","ADM-POP-009-API", "-","Acionar Gerente Administrativo"],
+          ["11:00 - 12:00","Solicitar ajuste de orçamento (planilha) antes da liberação do DDA / SOP","-", "Planilha de Orçamento", "Acionar Gerente Administrativo"],
+          ["13:30 - 14:00", "Acompanhar e direcionar o relatório de pedidos a faturar (bloqueados)","-", "SICF", "Acionar gerente comercial"],
+          ["14:00 - 15:00", "Analisar e direcionar o Financeiro de acordo com a planilha de inadimplencia","ADM-POP-003-TSJ","-","Acionar Gerente Administrativo"],
+          ["15:00 - 16:00","Direcionar o Financeiro de acordo com o relatório das NFs em aberta (CAR / CAP)","-","-","Acionar Gerente Administrativo"],
+          ["16:00 - 16:30","Analisar e direcionar o Financeiro sobre os cadastros de clientes novos (positivação)","COM-POP-013-TBL","-","Acionar Gerente Administrativo"],
+          ["16:30 - 17:00","companhar e liberar o envio do DDA / SOP (pagamentos)","-","SICF","Acionar Financeiro Centralizadora"],
+          ["17:00 - 18:00","Fazer conferencia e acompanhamento do caixa (pendencias)","ADM-POP-004-TSJ","SICF","Acionar Gerente Administrativo"],
+          ["Conforme demanda (Mensal)","Acompanhar o fechamento da folha de pagamento (hora extra/férias/faltas/beneficios)","-","-","Acionar DP"],
+          ["Conforme demanda (Mensal)","Acompanhar as validações de CC Fornecedores e titulos de verba em aberto","-","SICF","Acionar Supervisores ou Gerente Comercial"],
+          ["Conforme demanda (Mensal)","Acompanhar as licensas / vistorias da empresa (Bombeiro, Prefeitura, Vigilancia)","ADM-POP-009-TSJ","Arquivos Fisicos e Digitais","Acionar Gerente Administrativo"],
+          ["Conforme demanda (Mensal)","Acompanhamento dos contratos existentes (serviços de terceiros)","-","Arquivos Fisicos e Digitais","Acionar Contabilidade Centrailizadora"],
+          ["Conforme demanda (Mensal)","Acompanhar, analisar e validar as cotações necessárias (compras/manutenção/melhorias)","ADM-POP-00-TSJ","Arquivos Fisicos e Digitais","Acionar Gerente Administrativo"],
+          
+
           
         ];
 
@@ -174,6 +182,7 @@
               <td>${atividades[i][1]}</td>
               <td>${atividades[i][2]}</td>
               <td>${atividades[i][3]}</td>
+              <td>${atividades[i][4]}</td>
               <td>
                 <input type="checkbox" name="atividade_${i+1}" value="Sim"
                   onclick="toggleCheckbox(event, this, 'atividade_${i+1}', 'Sim')">
@@ -253,7 +262,7 @@
     formData.append("data", data);
     formData.append("unidade", unidade);
 
-    fetch("https://script.google.com/macros/s/AKfycbwqD1V2-wYxsK94SBDYfo1jgcMPX7uIcIOHHEnwyrAMMy_EJIBZVZaekw4PTtQ9zBuD0g/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbwFxWi2ZPbHOcbqtfYvQFIOd5WOudoT8L4-JIz6qT4NwW6BfStJ7KzlJUgS9hSe5LXx/exec", {
       method: "POST",
       body: formData
     })
